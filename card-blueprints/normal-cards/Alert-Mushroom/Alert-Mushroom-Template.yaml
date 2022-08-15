@@ -1,6 +1,6 @@
 blueprint:
-  name: Mushroom Alert Template Card Blueprint
-  description:  Mushroom Alert Template card by Michel Jourdain
+  name: Mushroom Alert Motion Sensor card Blueprint
+  description:  Mushroom Alert Motion Sensor card by Levi Govaerts
   version: "1.0"
   type: card
   
@@ -9,53 +9,28 @@ blueprint:
     - card-mod
 
   input:
-  
-    01_alert_name:
-       name: Alert name
-       description: The alert name
-       type: text-field
-  
-    02_alert_entity:
-       name: Alert entity
-       description: The alert entity
+    01_motion_sensor_entity:
+       name: Motion sensor entity
+       description: The motion sensor entity
        type: entity-picker
-       
-    03_alert_icon_off:
-       name: Alert icon off, locked...
-       description: The alert icon when is OFF
-       type: icon-picker
-       
-    04_alert_icon_on:
-       name: Alert icon on, unlocked...
-       description: The alert icon when is ON
-       type: icon-picker
-       
-    05_normal_state_translate:
-       name: Translate Normale state
-       description: Translate The normal state, off, locked...
-       type: text-field       
-       
-    06_alert_state_translate:
-       name: Translate Alert state
-       description: Translate The alert state, off, locked...
-       type: text-field       
-
-    07_normal_state:
-       name: Normale state
-       description: The normal state, off, locked...
+    02_motion_sensor_name:
+       name: Name of the sensor
+       description: The name of this motion sensor
        type: text-field
-
-    08_alert_state:
-       name: Alert state
-       description: The alert state, on, unlocked...
-       type: text-field
+    03_icon_clear:
+       name: Icon motion cleared
+       description: The icon shown when no motion is detected
+       type: icon-picker 
+    04_icon_detected:
+       name: Icon motion detected
+       description: The icon shown when motion is detected
+       type: icon-picker
        
 card:
-
   type: custom:mushroom-template-card
-  primary: $01_alert_name$
+  primary: $01_motion_sensor_name$
   secondary: |-
-    {% if is_state('$02_alert_entity$', '$07_normal_state$') %}
+    {% if is_state('$01_motion_sensor_entity$', 'on') %}
         $05_normal_state_translate$
     {% elif is_state('$02_alert_entity$', '$08_alert_state$') %}
         $06_alert_state_translate$
